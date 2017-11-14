@@ -2,10 +2,96 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title></title>
-
+    <title>Hangman Game</title>
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">    
   </head>
   <body>
+    <header class="text-center p-3 bg-dark">
+      <h1 class="text-white">Rick and Morty Hangman</h1>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 mt-3">
+          <div class="row jumbotron border ">
+            <div class="col-lg-6 text-center ">
+              <h2>Wins: <span id="wins"></span> </h2>
+              
+            </div>
+            <div class="col-lg-6 text-center">
+                <h2>Looses: <span id="looses"></span> </h2>
+            </div>
+          </div>
+          <div class="">
+          <h3 class="text-center" id="blanks"></h3>
+          </div>
+          <div>
+            <h3 class="text-center" id="wrongLetters"></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      //Initializes var wins
+      var wins = document.getElementById("wins");
+      wins.innerHTML = 0
+      //initializes var looses
+      var looses = document.getElementById("looses");
+      looses.innerHTML = 0
+      //Function to start define all the variables and start the game
+      function gameStart() {
+        // Possible words
+        var words = ["morty", "rick", "portal", "szechuan", "wubalubadubdub"];
+        //Chances the user has to guess
+        var chances = 10;
+        var wrongLetterArray = [];
+        document.getElementById("wrongLetters").innerHTML = wrongLetterArray
+        var randomNumber = [Math.floor(Math.random() *words.length)];
+        var chosenWord = words[randomNumber];
+        var blanks = [];
 
+        //Creating blanks
+        for (var i = 0; i < chosenWord.length; i ++ ) {
+          blanks.push("_");
+          document.getElementById("blanks").innerHTML = blanks;
+          
+        gameEngine(chances, wrongLetterArray, chosenWord, blanks, wins, looses);
+        }
+      }
+      function gameEngine (chances, wrongLetterArray, chosenWord, blanks) {
+        document.onkeyup = function(event) {
+        var keyPressed = event.key;
+        console.log(event.key);
+          if (chosenWord.indexOf(keyPressed) !== -1) {
+            for (i = 0; i < chosenWord.length; i ++) {
+              if (chosenWord[i] == keyPressed) { 
+              blanks[i]= keyPressed;
+              document.getElementById("blanks").innerHTML = blanks;
+              
+              }
+            }
+          }
+          else if (wrongLetterArray.indexOf(keyPressed) == -1) {
+            wrongLetterArray.push(keyPressed);
+            var wrongLettersFixed = wrongLetterArray.join(" ");
+            document.getElementById("wrongLetters").innerHTML = wrongLettersFixed.toUpperCase();
+            chances--; 
+          }
+          if (chances == 0) {
+            looses.innerHTML ++;
+            console.log("looses: " + looses);
+            gameStart();
+          }
+          console.log("blanks  to string: " + blanks.join(""))
+          if (blanks.join("") === chosenWord) {
+            wins.innerHTML ++;
+            console.log ("wins: " + wins)
+            gameStart()
+          }
+        }
+      }
+    gameStart() 
+      </script>
   </body>
-</html>
+</html> 
