@@ -1,0 +1,18 @@
+body {
+  background-image: url(../images/randm.jpg);
+  background-size: cover;
+
+}
+
+.main {
+  height: 700px;
+  background-color: rgba(51, 66, 75, 0.95)
+}
+
+#wrongLetters {
+  height: 100%;
+}
+
+#pressstart {
+  height: 40px;
+}

@@ -5,29 +5,38 @@
     <title>Hangman Game</title>
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">    
+    <link rel="stylesheet" href="./assets/css/style.css">
   </head>
   <body>
-    <header class="text-center p-3 bg-dark">
-      <h1 class="text-white">Rick and Morty Hangman</h1>
+    <header class="text-center p-3 bg-dark mb-3">
+      <h1 class="text-white">The Best Hangman in the Multiverse</h1>
     </header>
     <div class="container">
-      <div class="row">
-        <div class="col-lg-12 mt-3">
-          <div class="row jumbotron border ">
-            <div class="col-lg-6 text-center ">
+      <div class="row main p-3">
+        <div class="col-lg-12">
+          <div class="row text-center">
+            <div class="col-lg-12">
+            <h2 class="text-center text-white" id="pressstart">Press Enter to start</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4 text-center text-white" id="wincol">
               <h2>Wins: <span id="wins"></span> </h2>
-              
             </div>
-            <div class="col-lg-6 text-center">
+            <div class="col-lg-4 bg-info h-100 p-3">
+                <h2 class="text-white text-center" id="right"></h2>
+                <h2 class="text-center text-white mb-5" id="blanks"> </h2>
+                <h2 class="text-center text-white" id="wrong"></h2>
+                <h2 class="text-center text-white" id="wrongLetters"> </h2>
+              </div>
+            <div class="col-lg-4 text-center text-white">
                 <h2>Looses: <span id="looses"></span> </h2>
+                <div id="loosecol">
+                  
+                </div>
             </div>
-          </div>
-          <div class="">
-          <h3 class="text-center" id="blanks"></h3>
-          </div>
-          <div>
-            <h3 class="text-center" id="wrongLetters"></h3>
-          </div>
+
+
         </div>
       </div>
     </div>
@@ -41,8 +50,9 @@
       looses.innerHTML = 0
       //Function to start define all the variables and start the game
       function gameStart() {
+     
         // Possible words
-        var words = ["morty", "rick", "portal", "szechuan", "wubalubadubdub"];
+        var words = ["morty", "rick", "portal", "szechuan", "wubalubadubdub", "snuffles", "jerry"];
         //Chances the user has to guess
         var chances = 10;
         var wrongLetterArray = [];
@@ -56,8 +66,10 @@
           blanks.push("_");
           document.getElementById("blanks").innerHTML = blanks;
           
-        gameEngine(chances, wrongLetterArray, chosenWord, blanks, wins, looses);
+        
         }
+            gameEngine(chances, wrongLetterArray, chosenWord, blanks, wins, looses);
+          
       }
       function gameEngine (chances, wrongLetterArray, chosenWord, blanks) {
         document.onkeyup = function(event) {
@@ -68,7 +80,6 @@
               if (chosenWord[i] == keyPressed) { 
               blanks[i]= keyPressed;
               document.getElementById("blanks").innerHTML = blanks;
-              
               }
             }
           }
@@ -91,7 +102,14 @@
           }
         }
       }
-    gameStart() 
+      document.onkeyup = function(event) {
+          if (event.keyCode === 13) {
+            document.getElementById("right").innerHTML = "Guess This Word!";
+            document.getElementById("wrong").innerHTML = "Wrong Guesses";
+            document.getElementById("pressstart").innerHTML = "";
+            gameStart();
+          }
+        }
       </script>
   </body>
 </html> 
