@@ -4,15 +4,37 @@ body {
 
 }
 
+footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+.container {
+  height: 800px;
+}
+
+.card {
+  /* float: none; */
+  margin: 0 auto;
+}
+.btn-primary {
+  margin: 0 auto;
+  /* background-color: green; */
+}
+/* #chanceCounter {
+  height: 100px; */
+
 .main {
-  height: 700px;
+  height: 40%;
   background-color: rgba(51, 66, 75, 0.95)
 }
+
 
 #wrongLetters {
   height: 100%;
 }
 
-#pressstart {
-  height: 40px;
+
+.data {
+  height: 50%;
 }

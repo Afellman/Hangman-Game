@@ -2,114 +2,57 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Hangman Game</title>
     <link rel="stylesheet" href="./assets/css/reset.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">    
+    <link rel="stylesheet" href="./assets/css/bootstrap.css">
     <link rel="stylesheet" href="./assets/css/style.css">
   </head>
   <body>
     <header class="text-center p-3 bg-dark mb-3">
-      <h1 class="text-white">The Best Hangman in the Multiverse</h1>
+      <h1 class="text-white">
+        The Best Hangman in the Multiverse
+      </h1>
     </header>
     <div class="container">
-      <div class="row main p-3">
-        <div class="col-lg-12">
-          <div class="row text-center">
-            <div class="col-lg-12">
-            <h2 class="text-center text-white" id="pressstart">Press Enter to start</h2>
-            </div>
+      <div class="row">
+        <div class="card mb-3" style="width: 20rem;">
+          <div class="card-block">
+            <h4 class="card-title text-center">Chances</h4>
+            <h1 id="chanceCounter" class="card-text text-center">10</h1>
           </div>
-          <div class="row">
-            <div class="col-lg-4 text-center text-white" id="wincol">
-              <h2>Wins: <span id="wins"></span> </h2>
-            </div>
-            <div class="col-lg-4 bg-info h-100 p-3">
-                <h2 class="text-white text-center" id="right"></h2>
-                <h2 class="text-center text-white mb-5" id="blanks"> </h2>
-                <h2 class="text-center text-white" id="wrong"></h2>
-                <h2 class="text-center text-white" id="wrongLetters"> </h2>
-              </div>
-            <div class="col-lg-4 text-center text-white">
-                <h2>Looses: <span id="looses"></span> </h2>
-                <div id="loosecol">
-                  
-                </div>
-            </div>
+        </div>
+      </div>
+      <div class="row main p-3 rounded">
+        <div class="col-lg-4 bg-light text-center text-dark p-3 rounded">
+          <h2>Wins: <span id="wins"></span> </h2>
+          <div id="wincol">
+            
+          </div>
+        </div>
+        <div class="col-lg-4 bg-info h-100 p-3 rounded">
+          <h2 class="text-dark text-center mb-3" id="right">Press Enter to Start</h2>
+          <h2 class="text-center text-dark mb-5" id="blanks"> </h2>
+          <h2 class="text-center text-dark" id="wrong"></h2>
+          <h2 class="text-center text-dark" id="wrongLetters"></h2>
+        </div>
+        <div class="col-lg-4 bg-light text-center text-dark win_lose p-3 rounded">
+          <h2>Loses: <span id="looses"></span> </h2>
+          <div id="losecol">
 
-
+          </div>
+        </div>
         </div>
       </div>
     </div>
-    
-    <script>
-      //Initializes var wins
-      var wins = document.getElementById("wins");
-      wins.innerHTML = 0
-      //initializes var looses
-      var looses = document.getElementById("looses");
-      looses.innerHTML = 0
-      //Function to start define all the variables and start the game
-      function gameStart() {
-     
-        // Possible words
-        var words = ["morty", "rick", "portal", "szechuan", "wubalubadubdub", "snuffles", "jerry"];
-        //Chances the user has to guess
-        var chances = 10;
-        var wrongLetterArray = [];
-        document.getElementById("wrongLetters").innerHTML = wrongLetterArray
-        var randomNumber = [Math.floor(Math.random() *words.length)];
-        var chosenWord = words[randomNumber];
-        var blanks = [];
-
-        //Creating blanks
-        for (var i = 0; i < chosenWord.length; i ++ ) {
-          blanks.push("_");
-          document.getElementById("blanks").innerHTML = blanks;
-          
-        
-        }
-            gameEngine(chances, wrongLetterArray, chosenWord, blanks, wins, looses);
-          
-      }
-      function gameEngine (chances, wrongLetterArray, chosenWord, blanks) {
-        document.onkeyup = function(event) {
-        var keyPressed = event.key;
-        console.log(event.key);
-          if (chosenWord.indexOf(keyPressed) !== -1) {
-            for (i = 0; i < chosenWord.length; i ++) {
-              if (chosenWord[i] == keyPressed) { 
-              blanks[i]= keyPressed;
-              document.getElementById("blanks").innerHTML = blanks;
-              }
-            }
-          }
-          else if (wrongLetterArray.indexOf(keyPressed) == -1) {
-            wrongLetterArray.push(keyPressed);
-            var wrongLettersFixed = wrongLetterArray.join(" ");
-            document.getElementById("wrongLetters").innerHTML = wrongLettersFixed.toUpperCase();
-            chances--; 
-          }
-          if (chances == 0) {
-            looses.innerHTML ++;
-            console.log("looses: " + looses);
-            gameStart();
-          }
-          console.log("blanks  to string: " + blanks.join(""))
-          if (blanks.join("") === chosenWord) {
-            wins.innerHTML ++;
-            console.log ("wins: " + wins)
-            gameStart()
-          }
-        }
-      }
-      document.onkeyup = function(event) {
-          if (event.keyCode === 13) {
-            document.getElementById("right").innerHTML = "Guess This Word!";
-            document.getElementById("wrong").innerHTML = "Wrong Guesses";
-            document.getElementById("pressstart").innerHTML = "";
-            gameStart();
-          }
-        }
-      </script>
+    <script src="./assets/javascript/game.js"></script> 
+    <script
+    src="./assets/javascript/jquery-3.2.1.min.js"></script>
   </body>
+  <footer class="footer">
+    <div class="bg-dark p-3 text-center text-light">
+    © Copyright 2017 Andrew Fellman
+    </div>
+</footer>	
+
 </html> 
