@@ -6,34 +6,54 @@ var looses = document.getElementById("looses");
 looses.innerHTML = 0
 //Array of possible words
 var words = ["morty", "rick", "portal", "szechuan", "wubalubadubdub", "snuffles", "jerry", "meeseeks"];
-//Event listner waiting for Enter to start the game.
-document.onkeyup = function(event) {
-  if (event.keyCode === 13) {
-    document.getElementById("right").innerHTML = "Guess This Word!";
-    document.getElementById("wrong").innerHTML = "Wrong Letters";
-    gameStart();
-  }
-}
-        
+
+
+var sounds = ["./assets/sounds/morty.wav", "./assets/sounds/rick.wav","./assets/sounds/portal.wav","./assets/sounds/szechuan.wav","./assets/sounds/dubdub.wav","./assets/sounds/snuffles.wav","./assets/sounds/jerry.wav","./assets/sounds/meeseeks.wav"]
+//speaker button 
+$(".speakericon").on("click", function() {
+  console.log("clicked on");
+  $(".speakericon").attr("src", "https://upload.wikimedia.org/wikipedia/commons/3/3f/Mute_Icon.svg");
+  $(".speakericon").attr("id", "off");
+  $(".speakericon").attr("class", " ");
+});
+
+$("#off").on("click", function () {
+  console.log("clicked off");
+  $("#off").attr("src", "https://upload.wikimedia.org/wikipedia/commons/2/21/Speaker_Icon.svg");
+  $("#off").attr("id",  "");
+  $("off").attr("class", ".speakericon")
+});
+
+//Button to start game.
+$(".start-btn").on("click", function() {
+  $(".start-btn").remove();
+  gameStart();
+});
+      
 function gameStart() {
+  document.getElementById("right").innerHTML = "Guess This Word!";
+  document.getElementById("wrong").innerHTML = "Wrong Letters";
   //Resets wrong letters
-  $("#wrongLetters").html(" ")
+  $("#wrongLetters").html(" ");
+  //Empty array for underscores
+  var blanks = [];
   //Resets Chances
   var chances = 10;
-  $("#chanceCounter").html(chances) 
+  $("#chanceCounter").html(chances);
   //Empty array for wrong letters
   var wrongLetterArray = [];
   //Random number to choose work
   var randomNumber = [Math.floor(Math.random() *words.length)];
   //Chooses word using random number
   var chosenWord = words[randomNumber];
-  //Empty array for underscores
-  var blanks = [];
+  var soundSrc = sounds[randomNumber];
   //Creates blanks
   for (var i = 0; i < chosenWord.length; i ++ ) {
     blanks.push("_");
   }
-  document.getElementById("blanks").innerHTML = blanks.join(" ");  
+  //populating html with blanks
+  document.getElementById("blanks").innerHTML = blanks.join(" "); 
+  //event listener waiting for user to press a key
   document.onkeyup = function(event) {
     var keyPressed = event.key;
       if (chosenWord.indexOf(keyPressed) !== -1) {
@@ -50,9 +70,10 @@ function gameStart() {
         document.getElementById("wrongLetters").innerHTML = wrongLettersFixed;
         chances--; 
         $("#chanceCounter").html(chances)
-      }
+      };
       if (chances == 0) {
         looses.innerHTML ++;
+        $("#losecol").append("<p>" + chosenWord + "<p>");
         // var audioElement = document.createElement('audio');
         // audioElement.setAttribute('src', 'http://www.soundjay.com/misc/sounds/bell-ringing-01.mp3');
         // audioElement.play();
@@ -61,8 +82,10 @@ function gameStart() {
       if (blanks.join("") === chosenWord) {
         wins.innerHTML ++;
         $("#wincol").append("<p>" + chosenWord + "<p>");
-        // document.getElementById("wincol").innerHTML = chosenWord
-        gameStart()
-      }
-    }
-  }
+        var dubdub = new Audio();
+        dubdub.src = soundSrc;
+        dubdub.play();
+        gameStart();
+      };
+    };
+};
