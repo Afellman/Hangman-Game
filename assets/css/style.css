@@ -15,10 +15,14 @@ footer {
   
   margin: 0 auto;
 }
+
 .container {
   min-height: 800px;
 }
 
+#hint {
+
+}
 .card {
   /* float: none; */
   margin: 0 auto;

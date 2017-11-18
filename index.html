@@ -11,7 +11,7 @@
   </head>
   <body>
     <header class="text-center p-3 bg-dark mb-3">
-        <button class="speakerButton"><img  class="speakericon" src="https://upload.wikimedia.org/wikipedia/commons/2/21/Speaker_Icon.svg" alt="speakericon"></button>
+        <button class="speakerButton"><img  class="speakericon tog" src="https://upload.wikimedia.org/wikipedia/commons/2/21/Speaker_Icon.svg" alt="speakericon"></button>
       <h1 class="text-white">
         The Best Hangman in the Multiverse
       </h1>
@@ -22,6 +22,7 @@
           <div class="card-block">
             <h4 class="card-title text-center">Chances</h4>
             <h1 id="chanceCounter" class="card-text text-center">10</h1>
+            <h3 id="hint" class="text-center bg-success rounded"></h3>
           </div>
         </div>
       </div>
@@ -36,7 +37,7 @@
           <h2 class="text-dark text-center mb-5" id="right"></h2>
           <h2 class="text-center text-dark mb-5" id="blanks"> </h2>
           <h2 class="text-center text-dark" id="wrong"></h2>
-          <button type="button" class="btn btn-primary btn-lg start-btn mt-5">Click Here to Start</button>
+          <button type="button" class="btn btn-primary btn-lg start-btn mt-3">Click Here to Start</button>
           <h2 class="text-center text-dark" id="wrongLetters"></h2>
         </div>
         <div class="col-lg-4 bg-light text-center text-dark win_lose p-3 rounded">
